@@ -1,0 +1,13 @@
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp" ;
+
+CREATE TABLE IF NOT EXISTS roles ;
+
+
+CREATE TABLE IF NOT EXISTS users ;
+
+
+
+
+
+
