@@ -9,7 +9,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="config-server" />
         <module name="discovery" />
-        <module name="APIGateway" />
       </profile>
       <profile name="Annotation profile for UserManagement" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -19,12 +18,17 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
         </processorPath>
         <module name="UserManagement" />
+        <module name="ApiGateway" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="APIGateway" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="APIGateway" options="-parameters" />
+      <module name="ApiGateway" options="-parameters" />
       <module name="UserManagement" options="-parameters" />
       <module name="config-server" options="-parameters" />
       <module name="discovery" options="-parameters" />

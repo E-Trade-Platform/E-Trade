@@ -1,35 +1,40 @@
 package com.etrade.usermanagement.user.controller;
 
-import com.etrade.usermanagement.user.dto.UserCredentialsDTO;
-import com.etrade.usermanagement.user.dto.UserDTO;
-import com.etrade.usermanagement.user.service.UserServiceImp;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import com.etrade.usermanagement.user.model.UserEntity;
+import com.etrade.usermanagement.user.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/api/v1/user")
-@RequiredArgsConstructor
-public class UserController {
+import java.util.List;
 
-    private final UserServiceImp service;
+@RestController
+@RequestMapping("/users")
+class UserController {
+    @Autowired
+    private UserService userService;
+
+    @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<UserEntity> getUsers() { return userService.getAllUsers(); }
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<UserEntity> getUserById(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUserById(id));
+    }
 
     @PostMapping
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
-        return ResponseEntity.ok(service.createUser(userDTO));
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity user) {
+        return ResponseEntity.ok(userService.saveUser(user));
     }
 
-    @GetMapping("/hello")
-    public String hello() { return "hello!" ; }
-
-    @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody UserCredentialsDTO dto) {
-        if (service.verifyCredentials(dto)) {
-            UserDTO user = service.getUserByCredentials(dto);
-            return ResponseEntity.ok(user);
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
     }
-
 }

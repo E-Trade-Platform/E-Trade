@@ -1,4 +1,4 @@
-package com.etrade.usermanagement.shared;
+package com.etrade.usermanagement.enums;
 
 public enum Status {
     ACTIVE,

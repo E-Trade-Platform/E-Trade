@@ -9,7 +9,13 @@
         <option value="$PROJECT_DIR$/Services/UserManagement/pom.xml" />
         <option value="$PROJECT_DIR$/APIGateway/pom.xml" />
         <option value="$PROJECT_DIR$/Services/APIGateway/pom.xml" />
+        <option value="$PROJECT_DIR$/Services/ApiGateway/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/Services/APIGateway/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_23" default="true" project-jdk-name="23" project-jdk-type="JavaSDK">
